@@ -1,0 +1,118 @@
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+}
+#slider_panel {
+    height:100px;
+    width:350px;
+}
+
+/*#globe_viz {
+    background-color:#eeeeee;
+    height:500px;
+    width:500px;
+    float:left;
+    padding:5px; 
+}*/
+
+#graphs {
+    background-color:#eeeeee;
+    height:500px;
+    width:500px;
+    float:left;
+    padding:10px; 
+}
+.noclicks {
+  pointer-events:none;
+}
+
+
+.graticule {
+  fill: none;
+  stroke: black;
+  stroke-width:.5;
+  opacity:.2;
+}
+
+.labels {
+    font: 8px sans-serif;
+    fill: black;
+    opacity: .5;
+}
+
+.land {
+  fill: rgb(117, 87, 57);
+  stroke-opacity: 1;
+}
+
+.countries path {
+  stroke: rgb(80, 64, 39);  
+  stroke-linejoin: round;
+  stroke-width:.5;
+  fill: rgb(117, 87, 57);
+  opacity: .1;
+}
+
+.countries path:hover {
+  fill-opacity:.1;
+  stroke-width:1;
+  opacity: 1;
+}
+
+.noclicks {
+  pointer-events:none;
+}
+
+.point{
+  opacity:.6;
+}
+
+div#quake-pop-up {
+    display: none;
+    position:absolute;
+    color: white;
+    font-size: 14px;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 10px 5px 10px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+    z-index: 99;
+}
+div#quake-pop-up-title {
+    font-size: 15px;
+    width:300px;
+    margin-bottom: 4px;
+    font-weight: bolder;
+}
+div#quake-pop-up-content {
+    font-size: 14px;
+}
+div#quake-pop-desc {
+  margin-left: 10px;
+    width: 300px;
+  color: white;
+}
+div#quake-pop-img {
+    font-size: 30px;
+    font-weight: bolder;
+  color: white;
+}
+
+
+.bar rect {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
+
+.bar text {
+  background-color: black
+  fill: white;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

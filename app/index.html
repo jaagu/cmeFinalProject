@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+		<meta charset="utf-8">
+		<title>CME 161 Portfolio of Jaak Uudmae</title>
+
+		<!-- site dependencies -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/css/style.css" rel="stylesheet">
+
+		<!-- dcjs_baseball -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.css" rel="stylesheet">
+        <link href="assets/css/dcjs_baseball.css" rel="stylesheet">
+
+        <!-- c3HW -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://lit-coast-4367.herokuapp.com/assets/css/c3.theme.css" rel="stylesheet">
+
+        <!-- crossfilter -->
+        <link href="http://seiyria.com/bootstrap-slider/css/bootstrap-slider.css" rel="stylesheet">
+        <link href="assets/css/crossfilter.css" rel="stylesheet">
+         
+
+         <!-- d3HW -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.css" rel="stylesheet">
+        
+        
+<body>
+	<!-- begin wrap -->		
+	<div id="wrap">
+	  
+	  <!-- begin container -->
+		<div class="container">
+
+			<!-- begin content -->
+			<div id="content">
+
+				<!-- begin row -->
+				<div class="row">
+
+					<!-- begin header -->
+					<div class=".col-xs-12 .col-md-8">
+						<h1>Visualization Portfolio of Jaak Uudmae</h1>
+						<h4><a href='http://web.stanford.edu/~dderiso/cme151/' target='_blank'>CME 161: Data Visualization</a> <small>Spring 2016</small></h4>
+						<hr>
+					</div>
+					<!-- end header -->
+					<div class="row">
+						<!-- begin viz 1 -->
+						<div class="col-xs-12">
+							<h3>
+								Visualization Project 
+							</h3>
+
+							<!-- <p>
+								Here is the visualization of <a href="assets/html/project.html" target="_blank">USGS Earthquake</a>. Play with it by clicking your mouse and see how particles move. The library used is <a href= "http://threejs.org/" target = "_blank"> Three.js</a>.
+							</p> -->
+
+							<p>
+								Here is the visualization of <a href="assets/html/globe.html" target="_blank">USGS Earthquake</a>. The library used is <a href= "http://threejs.org/" target = "_blank"> Three.js</a>.
+							</p>
+
+							<hr>
+
+						</div>
+					</div>
+					<div class="row">
+					<!-- begin viz 1 -->
+						<div class="col-xs-12">
+							<h3>
+								Serving data from Backend 
+							</h3>
+
+							<p>
+								Check out the following link for the four trellis datasets. 					
+							</p>
+							<p>
+								1. <a href='/trellis' target='_blank'>The entire data set</a><br>
+								2. <a href='/trellis/limit/10' target='_blank'>A subset of length 10</a><br>
+								3. <a href='/graph' target='_blank'>The graph dataset</a><br>
+								4. <a href='/graph/limit/10' target='_blank'>The graph dataset with of length 10</a>
+
+								
+							</p>
+							<hr>
+
+						</div>
+					</div>
+
+					<div class="row">
+					<!-- begin viz 1 -->
+						<div class="col-xs-12">
+							<h3>
+								Particle simulation with three.js
+							</h3>
+
+							<p>
+								Here is the visualization of <a href="assets/html/hw3.html" target="_blank">Particle Simulation</a>. Play with it by clicking your mouse and see how particles move. The library used is <a href= "http://threejs.org/" target = "_blank"> Three.js</a>.
+							</p>
+
+							<hr>
+
+						</div>
+					</div>
+
+
+					<div class="row">
+						<!-- begin viz 1 -->
+						<div class="col-xs-12">
+							<h3>
+								Swarming Simulation with the Boids Algorithm using three.js
+							</h3>
+
+							<p>
+								Here is the visualization of <a href="assets/html/boids_threejs.html" target="_blank">Boid Simulation</a>. Play with the sliders to explore interesting behaviors of the boids. The library used is <a href= "http://threejs.org/" target = "_blank"> Three.js</a>.
+							</p>
+
+							<hr>
+
+						</div>
+					</div>
+
+					<!-- begin viz 1 -->
+					<div class=".col-xs-12 .col-md-8">
+						 <h3>Baseball allstar statistics at the end of 19th until the beginning of 20th century using DC.js</h3>
+    
+    					<hr>
+
+    					<p>
+    					In this visualization, I wanted to visualize Lahman's 
+    					dataset on how many all-star games certain baseball 
+    					players appeared in over the years. You can find out 
+    					more information about this data set 
+    					<a href="http://www.seanlahman.com/baseball-archive/statistics/" target="_blank">
+    					here
+    					</a>.
+    					You can click on data to make it change and use reset button to reset to original state.
+    					Libraries used: dc.css (v1.7.5), 
+										underscore-min.js(v1.8.3), 
+										d3.min.js(v3.5.17), 
+										crossfilter.js(v1.3.7), 
+										dc.js(v1.7.1)
+						Link to github: <a href="https://jsfiddle.net/jaagu/ps1483na/"> here </a>
+						</p>
+
+   						<hr>
+
+   						<div id="dcjs_baseball_container" style = "height:300px">
+					        <div id="dcjs_baseball_piechart"></div>
+					        <div id="dcjs_baseball_barchart"></div>
+					        <div id="dcjs_baseball_reset_button"></div>
+					    </div>
+
+
+						
+						
+						
+
+					</div>
+					<!-- end viz 1 -->
+					
+				    <hr>
+
+					<!-- begin viz 2 -->
+					<div class=".col-xs-12 .col-md-8">
+						
+						<h3>
+							EUR vs USD from 1999-2016
+						</h3>
+
+						<hr>
+
+						<p>
+							This visulization shows how US Dollar and EUR have changed over time.
+							 The libraries used are:  d3.min.js(v3.5.6), c3.min.js(v.0.4.10), dc.js(v1.7.1)
+							 Link to gitHub: <a href="http://jsfiddle.net/jaagu/wemyj3xe/" target="_blank"> here</a>.
+						</p>
+
+						<hr>
+						
+						 <div id=c3hw_container">
+					        <div class="container-fluid" style="margin-top:10px;">
+							  <div class="row">
+							    <div class="col-md-8">
+							      <div id="chart"></div>
+							    </div>
+							    <div class="col-md-4 well pull-right">
+							      <h2>EUR v USD from 1999-2016 (April 5-10)</h2>
+							      <hr>
+							      <p id="c3_message"></p>
+							      <button id="start_btn" class="btn btn-primary pull-right">Start</button>
+							    </div>
+							  </div>
+							</div>
+					   
+
+
+						<hr>
+
+					</div>
+					<!-- end viz 2 -->
+
+					<hr>
+
+					<!-- begin viz 3 -->
+					<div class=".col-xs-12 .col-md-8">
+						
+						<h3>
+							Baseball Allstars using crossfilter
+						</h3>
+
+						<hr>
+
+						<p>
+							This visulization uses crossfilter to show different data for baseball allstars. Use the sliders to change data.
+							 The libraries used are:  
+								crossfilter.min.js(v1.3.12), jquery.min.js(v2.0.3), bootstrap-slider.js(v1.0.1)
+							 Link to gitHub: <a href="http://jsfiddle.net/jaagu/7sj6hg6h/" target="_blank"> here</a>.
+						</p>
+
+						<hr>
+						
+						 <div id="crossfilter_container">
+						  	<div class="well">
+								 Filter # of Games Played:&nbsp&nbsp <b>10</b>
+								 <input id="n_games_slider" type="text" /> <b>1000</b>
+							 </div>
+
+								<div class="well">
+								  # of Games Played Range:&nbsp&nbsp <span id="n_games_slider_txt"></span>
+								</div>
+
+								<div class="well">
+								  Filter years:&nbsp&nbsp <b>1870</b>
+								  <input id="year_slider" type="text" /> <b>1906</b>
+								</div>
+
+								<div class="well">
+								  Years Range:&nbsp&nbsp <span id="year_slider_txt"></span>
+								</div>
+
+								<div class="well">
+								  Show top results:&nbsp&nbsp <b>0</b>
+								  <input id="maxResults_slider" type="text" /> <b>100</b>
+								</div>
+
+								<div class="well">
+								  Showing top:&nbsp&nbsp <span id="maxResults_slider_txt"></span>
+								</div>
+
+								<div class="well">
+								  Century:&nbsp&nbsp <b>19th</b>
+								  <input id="century_slider" type="text" /> <b>20th</b>
+								</div>
+
+								<div class="well">
+								  Century:&nbsp&nbsp <span id="century_slider_txt"></span>
+								</div>
+								
+
+							</div>
+					   
+
+
+						<hr>
+
+					</div>
+					<!-- end viz 3 -->
+					
+				    <hr>
+
+					<!-- begin viz 4 -->
+					<div class=".col-xs-12 .col-md-8">
+						
+						<h3>
+							Petal and sepal data using D3
+						</h3>
+
+						<hr>
+
+						<p>
+							This visulization gives data of different petals and setals.
+							
+							 The libraries used are:  underscore-min.js(v1.8.3), crossfilter.min.js(v master), dc.min.js(v1.7.5)
+							 Link to gitHub: <a href="http://jsfiddle.net/jaagu/wst3ge0d/" target="_blank"> here</a>.
+						</p>
+
+						<hr>
+						
+						 <div id="d3hw_container">
+					        <div style="float:left;">
+								  <h3>Sepal Length</h3>
+								  <div id="sepal_length_chart"></div>
+								</div>
+
+								<div style="float:left;">
+								  <h3>Species</h3>
+								  <div id="species_chart"></div>
+								</div>
+
+								<div style="float:left;">
+								  <h3>Sepal Width</h3>
+								  <div id="sepal_width_chart"></div>
+								</div>
+
+								<div style="float:left;">
+								  <h3>Petal Length</h3>
+								  <div id="petal_length_chart"></div>
+								</div>
+
+								<div style="float:left;">
+								  <h3>Petal Width</h3>
+								  <div id="petal_width_chart"></div>
+								</div>
+
+								<div style="float:left;">
+								  <div id="resetButton"></div>
+								</div>
+
+								<div style="float:left;">
+								  <div id="petalButton"></div>
+								</div>
+
+							</div>
+					   
+
+
+						<hr>
+
+					</div>
+					<!-- end viz 2 -->
+
+				</div>
+				<!-- end row -->
+
+			</div> 
+			<!-- end content -->
+
+		</div>
+		<!-- end container -->
+
+	</div>
+	<!-- end wrap -->	
+
+	<!-- begin footer -->
+	<div id="footer">
+	  <div class="container">
+			<p class="text-muted credit"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="assets/images/cc_80x15.png" /></a> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">This Portfolio</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://web.stanford.edu/~dderiso/cme151/" property="cc:attributionName" rel="cc:attributionURL">Jaak Joonas Uudmae</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/dderiso/stanford_data_viz_course" rel="dct:source">https://github.com/dderiso/stanford_data_viz_course</a>.</p>
+	  </div>
+	</div>
+	<!-- end footer -->
+
+    <!-- processing_random_triangle_meshes dependencies -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.16/processing.min.js'></script> -->
+    <!-- <script src='assets/js/random_triangle_meshes/random_triangle_meshes.js'></script> -->
+
+    <!-- dcjs_baseball -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.7/crossfilter.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.js'></script>
+    <script src='assets/js/dcjs_baseball/dcjs_baseball.js'></script>
+
+      <!--c3 -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.js'></script>
+    <script src='assets/js/c3HW/c3HW.js'></script>
+
+      <!-- crossfilter -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js'></script>
+    <script src='http://seiyria.com/bootstrap-slider/dependencies/js/jquery.min.js'></script>
+    <script src='http://seiyria.com/bootstrap-slider/js/bootstrap-slider.js'></script>
+    <script src='assets/js/crossfilterHW/crossfilterHW.js'></script>
+
+
+      <!-- d3 -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+    <script src='https://rawgit.com/crossfilter/crossfilter/master/crossfilter.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.min.js'></script>
+    <script src='assets/js/d3HW/d3HW.js'></script>
+</body>
+</html>
