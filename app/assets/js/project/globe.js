@@ -22,7 +22,7 @@ var hist = function(data_in, chart_id, value, chart_title) {
     
   d3.select("#" + chart_id).remove();
   
-  var div = d3.select("#graphs").append("div").attr("id", chart_id);
+  var div = d3.select("#magnitudeGraph").append("div").attr("id", chart_id);
   
   div.append("h2").text(chart_title);
   
@@ -133,9 +133,9 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
         .projection(projection);
         // .context(c);
     
-    var svg = d3.select("body").append("svg")
-            .attr("width", width + 1000)
-            .attr("height", height + 1000)
+    var svg = d3.select("#globeViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
             .on("mousedown", mousedown);
 
     var g = svg.append("g");
@@ -152,6 +152,10 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
                 
           //get the GeoJSON-features
           var quakes = places.features;
+          quakes = quakes.filter(function(row){     
+             //       console.log(row);
+                return row.properties ? (row.properties.mag >= 0) : 1;
+            });
           //make a new crossfilter from the features
           var earthquakes = crossfilter(quakes);
 
@@ -207,7 +211,7 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
            // var quakesJson = JSON.parse(quakes);
             var updated_features = quakes.filter(function(row){     
              //       console.log(row);
-                return row.properties ? (Math.round(row.properties.mag) >= minGlobalMagnitude && (Math.round(row.properties.mag) <= maxGlobalMagnitude) &&
+                return row.properties ? (row.properties.mag >= minGlobalMagnitude && row.properties.mag <= maxGlobalMagnitude &&
                                         row.properties.time >= minGlobalDate && row.properties.time <= maxGlobalDate) : 1;
             });
           //  console.log(updated_features);
@@ -270,18 +274,21 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
           
           var magnitudeSlider = new Slider("#magnitudeSlider", {
             "id": "magnitudeSlider",
-            "min": -2,
-            "max": 10,
+            "precision":1,
+            "min": -2.0,
+            "max": 10.0,
+            "step" : 0.1,
             "range": true,
-            "value": [-2, 10]
+            "value": [-2.0, 10.0]
           });
           
           magnitudeSlider.on("slide", function(e) {
             minGlobalMagnitude = e[0];
             maxGlobalMagnitude = e[1];
-            d3.select("#magnitudeSlider_txt").text("min: " + e[0] + ", max: " + e[1]);
+            d3.select("#magnitudeSliderGlobe_txt").text("min on the globe: " + e[0] + ", max on the globe: " + e[1]);
+            d3.select("#magnitudeSliderGraph_txt").text("min on the graph: " + Math.floor(e[0]) + ", max on the graph: " + Math.ceil(e[1]));
             // filter based on the UI element
-              dim_quakeMagnitudeFilter.filter([e[0]-0.1,e[1]+0.1]);
+              dim_quakeMagnitudeFilter.filter([Math.floor(e[0])-0.001,Math.ceil(e[1])]);
             // re-render
             render_plots();
         });

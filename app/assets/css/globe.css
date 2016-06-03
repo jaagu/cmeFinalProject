@@ -5,7 +5,19 @@
 }
 #slider_panel {
     height:100px;
-    width:350px;
+    width:300px;
+}
+
+#bootstrap-slider{
+  width:500px;
+}
+
+#magnitudeSlider .slider-selection {
+  background:green;
+}
+
+#daysSlider .slider-selection{
+  background:green;
 }
 
 /*#globe_viz {
