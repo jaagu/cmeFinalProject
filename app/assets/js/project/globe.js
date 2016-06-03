@@ -1,10 +1,11 @@
 var hist = function(data_in, chart_id, value, chart_title) {
-
+   //sort data
+   data_in = data_in.sort(function (a, b) { return a.key < b.key ? -1 : 1; });
   var margin = {
       "top": 30,
       "right": 30,
       "bottom": 50,
-      "left": 30
+      "left": 100
     },
     width = 600 - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom;
@@ -69,16 +70,18 @@ var hist = function(data_in, chart_id, value, chart_title) {
     .scale(xScale)
     .orient("bottom");
 
-  var xTicks = svg.append("g")
+   var xTicks = svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis)
     .selectAll("text")
-    .style("text-anchor", "end")
-    .attr("font-size", 10)
     .attr("transform", function(d) {
-      return "rotate(-50)"
-    });
+       return "rotate(0)"
+    })
+    .attr("y", 3)
+    .attr("x", (width / data_in.length - 1) / 2)
+    .attr("font-size", 10)
+    .attr("text-anchor", "end");
 
 
   var yAxis = d3.svg.axis()
@@ -96,86 +99,12 @@ var hist = function(data_in, chart_id, value, chart_title) {
 }
 
 d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson", function(remote_json) {
-    var dNow = new Date();
-        
-  //get the GeoJSON-features
-  var quakes = remote_json.features;
-  //make a new crossfilter from the features
-  var earthquakes = crossfilter(quakes);
+    //SLIDER VALUES FOR THE GLOBE
+    var minGlobalMagnitude = -10;
+    var maxGlobalMagnitude = 10;
+    var minGlobalDate = 0;
+    var maxGlobalDate = Infinity;
 
-  //testing crossfilter by counting all features
-  //var n = earthquakes.groupAll().reduceCount().value();
-//  console.log("There are " + n + " eathquakes within that file!")
-
-  //get the 'magnitude'-dimension
-  var dim_quakeMagnitude = earthquakes.dimension(function(d) {
-    return Math.round(d.properties.mag);
-  });
-  var dim_quakeTime = earthquakes.dimension(function(d) {
-    return d.properties.time;
-  });
-
-//  console.log(dim_quakeMagnitude.top(Infinity).length);
-  var group_magniDimensions = dim_quakeMagnitude.group();
-  group_magniDimensions.orderNatural();
-//  console.log(group_magniDimensions.top(Infinity));
-  var reduce_init = function() {
-    return {
-      "count": 0
-    };
-  }
-
-  var reduce_add = function(p, v, nf) {
-    ++p.count;
-    return p;
-  }
-
-  var reduce_remove = function(p, v, nf) {
-    --p.count;
-    return p;
-  }
-
-  group_magniDimensions.reduce(reduce_add, reduce_remove, reduce_init);
-
-  var render_plots = function() {
- //  console.log(group_magniDimensions.top(Infinity));
-    hist(group_magniDimensions.top(Infinity), "quakesByMagnitude",
-      "count", "# of Earthquakes per magnitude");
-        
-  }
-
-  // magniDimension.filter([0, 10]);
- 
-  var magniSlider = new Slider("#magniSlider", {
-    "id": "magniSlider",
-    "min": 0,
-    "max": 30,
-    "range": true,
-    "value": [0, 30]
-  });
-
-  magniSlider.on("slide", function(e) {
-    d3.select("#magniSlider_txt").text("min (ago): " + e[0] + ", max (ago): " + e[1]);
-
-    // filter based on the UI element
-   // dim_quakeMagnitude.filter(e);
-      dim_quakeTime.filter(function(d){
-      //  console.log("NOW: ", dNow.toLocaleString());
-        var maxDate = new Date();
-        maxDate.setDate(dNow.getDate()-e[0]);
-       // console.log("MaxDate: ", maxDate.toLocaleString());
-        var minDate = new Date();
-        minDate.setDate(dNow.getDate()-e[1]);
-     //   console.log("MinDate: ", minDate.toLocaleString());
-        return (d >= Date.parse(minDate) && d <= Date.parse(maxDate));
-      });
-     // group_magniDimensions.dispose();
-      
-        //testing crossfilter by counting all features
-    // re-render
-     render_plots();
-  });
-  render_plots();
     window.remote_json = remote_json;
 
     d3.select(window)
@@ -219,6 +148,147 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
         .await(ready);
 
     function ready(error, world, places) {
+        var dNow = new Date();
+                
+          //get the GeoJSON-features
+          var quakes = places.features;
+          //make a new crossfilter from the features
+          var earthquakes = crossfilter(quakes);
+
+          //testing crossfilter by counting all features
+          //var n = earthquakes.groupAll().reduceCount().value();
+        //  console.log("There are " + n + " eathquakes within that file!")
+
+          //get the 'magnitude'-dimension
+          var dim_quakeMagnitude = earthquakes.dimension(function(d) {
+            return Math.round(d.properties.mag);
+          });
+
+          var dim_quakeMagnitudeFilter = earthquakes.dimension(function(d) {
+            return Math.round(d.properties.mag);
+          });
+
+          var dim_quakeTime = earthquakes.dimension(function(d) {
+            return d.properties.time;
+          });
+
+        //  console.log(dim_quakeMagnitude.top(Infinity).length);
+          var group_magniDimensions = dim_quakeMagnitude.group();
+          group_magniDimensions.orderNatural();
+        //  console.log(group_magniDimensions.top(Infinity));
+          var reduce_init = function() {
+            return {
+              "count": 0
+            };
+          }
+
+          var reduce_add = function(p, v, nf) {
+            ++p.count;
+            return p;
+          }
+
+          var reduce_remove = function(p, v, nf) {
+            --p.count;
+            return p;
+          }
+
+          group_magniDimensions.reduce(reduce_add, reduce_remove, reduce_init);
+
+          var div = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0)
+
+          var render_plots = function() {
+         //  console.log(group_magniDimensions.top(Infinity));
+            hist(group_magniDimensions.top(Infinity), "quakesByMagnitude",
+              "count", "# of Earthquakes per magnitude");
+
+            //update globe
+           // var quakesJson = JSON.parse(quakes);
+            var updated_features = quakes.filter(function(row){     
+             //       console.log(row);
+                return row.properties ? (Math.round(row.properties.mag) >= minGlobalMagnitude && (Math.round(row.properties.mag) <= maxGlobalMagnitude) &&
+                                        row.properties.time >= minGlobalDate && row.properties.time <= maxGlobalDate) : 1;
+            });
+          //  console.log(updated_features);
+            svg.selectAll(".point").remove();
+            svg.append("g").attr("class","points")
+                .selectAll("text").data(updated_features)
+                .enter().append("path")
+                .attr("class", "point")
+                .attr("d", path.pointRadius(function(d){
+                    // console.log(d.properties.mag)
+                    return d.properties ? Math.sqrt((Math.exp((d.properties.mag)))) : 1;
+                }))
+                .style("fill", "red")
+                .on("mouseover", function(d) {
+                var format = d3.time.format("%Y-%m-%d %HH:%MM:%SS");
+              //  console.log(format(new Date(parseInt(d.properties.time))))
+               // console.log(div)
+                div.transition().duration(100).style("opacity", 0.9);
+                div.html( "Place: " + d.properties.place + "<br>" +"Time: " + format(new Date(parseInt(d.properties.time)))
+                    +"<br>" + "Magnitude: " + d.properties.mag)
+                    .style("left", (d3.event.pageX) + "px")     
+                    .style("top", (d3.event.pageY - 28) + "px"); 
+                })
+                .on("mouseout", function(d) {       
+                div.transition()        
+                    .duration(100)      
+                    .style("opacity", 0);
+                });
+            
+        
+            position_labels();
+                
+          }
+
+   
+         
+          var daysSlider = new Slider("#daysSlider", {
+            "id": "daysSlider",
+            "min": 0,
+            "max": 30,
+            "range": true,
+            "value": [0, 30]
+          });
+
+          daysSlider.on("slide", function(e) {
+            d3.select("#daysSlider_txt").text("min (ago): " + e[0] + ", max (ago): " + e[1]);
+            // filter based on the UI element
+            dim_quakeTime.filter(function(d) {
+              var maxDate = new Date();
+              maxDate.setDate(dNow.getDate() - e[0]);
+              maxGlobalDate = Date.parse(maxDate);
+              var minDate = new Date();
+              minDate.setDate(dNow.getDate() - e[1]);
+              minGlobalDate = Date.parse(minDate);
+              return (d >= Date.parse(minDate) && d <= Date.parse(maxDate));
+            });
+            // re-render
+            render_plots();
+          });
+          
+          var magnitudeSlider = new Slider("#magnitudeSlider", {
+            "id": "magnitudeSlider",
+            "min": -2,
+            "max": 10,
+            "range": true,
+            "value": [-2, 10]
+          });
+          
+          magnitudeSlider.on("slide", function(e) {
+            minGlobalMagnitude = e[0];
+            maxGlobalMagnitude = e[1];
+            d3.select("#magnitudeSlider_txt").text("min: " + e[0] + ", max: " + e[1]);
+            // filter based on the UI element
+              dim_quakeMagnitudeFilter.filter([e[0]-0.1,e[1]+0.1]);
+            // re-render
+            render_plots();
+        });
+        render_plots();
+
+
+        //3D GLOBE DATA
         if (error) throw error;
 
         var ocean_fill = svg.append("defs").append("radialGradient")
@@ -261,6 +331,7 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
         .attr("offset","100%").attr("stop-color", "#000")
         .attr("stop-opacity","0")  
 
+
         svg.append("ellipse")
         .attr("cx", width / 2).attr("cy", 450)
         .attr("rx", projection.scale()*.90)
@@ -296,22 +367,8 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
         .attr("class","noclicks")
         .style("fill", "url(#globe_shading)");
 
-        
-        // magnitude_array = [];
-        // for (i = 0; i < remote_json.features.length; i++) {
-        //     if (remote_json.features[i].hasOwnProperty("mag")){
-        //         magnitude_array.push(remote_json.features[i].properties.mag);
-        //     }
-            
-        //  }
-        // for (i = 0; i < magnitude_array.length; i++) {
-        //     console.log(magnitude_array[i])
-            
-        //  }
-
-
-
-        svg.append("g").attr("class","points")
+        // add earthquake points on the globe
+        svg.append("g").attr("class","point")
         .selectAll("text").data(places.features)
         .enter().append("path")
         .attr("class", "point")
@@ -319,18 +376,25 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
             // console.log(d.properties.mag)
             return d.properties ? Math.sqrt((Math.exp((d.properties.mag)))) : 1;
         }))
-        .style("fill", "red");
-    
+        .style("fill", "red")
+        .on("mouseover", function(d) {
+            var format = d3.time.format("%Y-%m-%d %HH:%MM:%SS");
+       //     console.log(format(new Date(parseInt(d.properties.time))))
+        //    console.log(div)
+            div.transition().duration(100).style("opacity", 0.9);
+            div.html( "Place: " + d.properties.place + "<br>" +"Time: " + format(new Date(parseInt(d.properties.time)))
+                +"<br>" + "Magnitude: " + d.properties.mag)
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px"); 
+            })
+        .on("mouseout", function(d) {       
+            div.transition()        
+                .duration(100)      
+                .style("opacity", 0);
 
-        // when hover on the countries, highligh the borders
-        svg.append("g").attr("class","countries")
-        .selectAll("path")
-        .data(topojson.object(world, world.objects.countries).geometries)
-        .enter().append("path")
-        .attr("d", path)
-        .text(function(d) { return d.properties.place });
-
-        position_labels();
+        });
+        
+       // refresh();
 
     }
 
