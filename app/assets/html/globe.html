@@ -21,43 +21,51 @@
 
 	<body>
 
-		<div id="header">
-		<h1>Earthquake Visualization</h1>
+
+		<!-- begin container -->
+		<div class="container">
+
+			<!-- begin row -->
+			<div class="row">
+
+				<!-- begin header -->
+				<div class=".col-xs-12 .col-md-8">
+					<h1>Earthquake Visualization</h1>		
+					<hr>
+				</div>
+				<!-- end header -->
+				
+				<div class=".col-xs-12 .col-md-8">
+					<div class="row">
+						<div class="col-xs-4">
+							Filter days <b>0</b> &nbsp&nbsp <input id="daysSlider" type="text" /> &nbsp&nbsp <b>30</b>
+						    <br> 
+						    Days range: <span id="daysSlider_txt"></span>
+						    <br>
+						    Filter magnitude <b>0.0</b> &nbsp&nbsp<input id="magnitudeSlider" type="text" /> &nbsp&nbsp <b>10.0</b> 
+						    <br>
+						    Magnitude ranges: 
+						    <br>
+						    &nbsp&nbsp &nbsp&nbsp <span id="magnitudeSliderGlobe_txt"></span>
+						    <br>
+						    &nbsp&nbsp &nbsp&nbsp <span id="magnitudeSliderGraph_txt"></span>
+						</div>
+
+						<div class="col-xs-8">
+	 						<div id="magnitudeGraph"></div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<div id="globeViz"></div>
+						</div>
+					</div>
+
+				</div>
+			</div>
 		</div>
 
-
-
-		<!-- <div id="globe_viz"> -->
-		             
-		    
-		        <!-- </div> -->
-		        <!-- <canvas id="globeParent"></canvas>
-		        <div class="col-md-12" id="globeParent"></div>
- -->
-				</div>
-
-				<div id="graphs">
-				    <h1>Graphs </h1> 
-				    Filter days <b>0</b> &nbsp&nbsp <input id="daysSlider" type="text" /> &nbsp&nbsp <b>30</b>
-				    <br> 
-				    Days range: <span id="daysSlider_txt"></span>
-				    <br>
-				    Filter magnitude <b>-2.0</b> &nbsp&nbsp<input id="magnitudeSlider" type="text" /> &nbsp&nbsp <b>10.0</b> 
-				    <br>
-				    Magnitude range: <span id="magnitudeSliderGlobe_txt"></span>
-				    <br>
-				    &nbsp&nbsp &nbsp&nbsp <span id="magnitudeSliderGraph_txt"></span>
-				    <div id = "magnitudeGraph">
-				    </div>
-				    <div id = "globeViz">
-				    </div>
-			    </div>
-
-
-
-<!-- 		<div id="graphs">
-		<h1>Graphs </h1>
-		</div> -->
 
 		<script src="/assets/js/project/globe.js"></script>
 	</body>

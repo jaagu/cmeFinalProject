@@ -13,11 +13,11 @@
 }
 
 #magnitudeSlider .slider-selection {
-  background:green;
+  background:red;
 }
 
 #daysSlider .slider-selection{
-  background:green;
+  background:red;
 }
 
 /*#globe_viz {

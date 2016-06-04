@@ -1,13 +1,14 @@
 var hist = function(data_in, chart_id, value, chart_title) {
    //sort data
    data_in = data_in.sort(function (a, b) { return a.key < b.key ? -1 : 1; });
+   var numOfBuckets = data_in.length+1;
   var margin = {
       "top": 30,
       "right": 30,
       "bottom": 50,
       "left": 100
     },
-    width = 600 - margin.left - margin.right,
+    width = 800 - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom;
 
   var x = d3.scale.linear()
@@ -38,12 +39,12 @@ var hist = function(data_in, chart_id, value, chart_title) {
     .append("g")
     .attr("class", "bar")
     .attr("transform", function(d, i) {
-      return "translate(" + x(i / (data_in.length-1)) + "," + y(d.value[value]) + ")";
+      return "translate(" + x(i / (numOfBuckets-1)) + "," + y(d.value[value]) + ")";
     });
 
   bar.append("rect")
-    .attr("x", 1)
-    .attr("width", width / data_in.length-1)
+    .attr("x", 5)
+    .attr("width", (width / (numOfBuckets)))
     .attr("height", function(d) {
       return height - y(d.value[value]);
     });
@@ -53,16 +54,16 @@ var hist = function(data_in, chart_id, value, chart_title) {
   bar.append("text")
     .attr("dy", ".75em")
     .attr("y", -15)
-    .attr("x", (width / data_in.length - 1) / 2)
+    .attr("x", (width / (numOfBuckets - 1))/ 2)
     .attr("text-anchor", "middle")
     .text(function(d) {
       return formatCount(d.value.count);
     });
  // console.log(data_in);
-  var unique_names = data_in.map(function(d) {
-    
+  var unique_names = data_in.map(function(d) { 
     return d.key;
   });
+  unique_names.push(unique_names[unique_names.length-1]+1);
 
   var xScale = d3.scale.ordinal().domain(unique_names).rangePoints([0, width]);
 
@@ -79,7 +80,7 @@ var hist = function(data_in, chart_id, value, chart_title) {
        return "rotate(0)"
     })
     .attr("y", 3)
-    .attr("x", (width / data_in.length - 1) / 2)
+    .attr("x", (width / (numOfBuckets- 1)) / 2)
     .attr("font-size", 10)
     .attr("text-anchor", "end");
 
@@ -275,18 +276,21 @@ d3.json("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geoj
           var magnitudeSlider = new Slider("#magnitudeSlider", {
             "id": "magnitudeSlider",
             "precision":1,
-            "min": -2.0,
+            "min": 0.0,
             "max": 10.0,
             "step" : 0.1,
             "range": true,
-            "value": [-2.0, 10.0]
+            "value": [0.0, 10.0]
           });
           
           magnitudeSlider.on("slide", function(e) {
             minGlobalMagnitude = e[0];
             maxGlobalMagnitude = e[1];
-            d3.select("#magnitudeSliderGlobe_txt").text("min on the globe: " + e[0] + ", max on the globe: " + e[1]);
-            d3.select("#magnitudeSliderGraph_txt").text("min on the graph: " + Math.floor(e[0]) + ", max on the graph: " + Math.ceil(e[1]));
+            d3.select("#magnitudeSliderGlobe_txt").text("GLOBE range (min: " + e[0] + ", max: " + e[1] + ")");
+            var mingraphDisplay =  Math.floor(e[0])-0.5;
+            if(mingraphDisplay < 0) mingraphDisplay = 0;
+            var maxgraphDisplay =  Math.ceil(e[1]) - 0.5
+            d3.select("#magnitudeSliderGraph_txt").text("GRAPH range (min: " + mingraphDisplay + ", max: " + maxgraphDisplay + ")");
             // filter based on the UI element
               dim_quakeMagnitudeFilter.filter([Math.floor(e[0])-0.001,Math.ceil(e[1])]);
             // re-render
